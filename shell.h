@@ -16,6 +16,19 @@ extern char **environ;
 
 
 /**
+ * struct builtin_s - builtin command structure
+ * @built: string command
+ * @f: function to use it in command
+ */
+
+typedef struct builtin_s
+{
+	char *built;
+	void (*f)(char **, char *);
+} builtin_t;
+
+
+/**
  * struct listint_s - singly linked list
  * @n: integer
  * @next: points to the next node
@@ -35,6 +48,19 @@ int str_len(char *str);
 char *_strdup(char *str);
 char **tokenization(char *line);
 int count_tokens(char *str_copy);
+void execute_child(char **array_param, char **argv);
+char *_getenv(const char *name);
+int is_exist(const char *file_name);
+char *locate_path(const char *name);
+char *join_strings(const char *first, const char *second, char sep);
+int _strcmp(const char *s1, const char *s2);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void assign_lineptr(char **lineptr, size_t *n, char *buffer, size_t b);
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+char *_strcpy(char *dest, char *src);
+void exit_built(char **array_param, char *line);
+int built_in(char **array_param, char *line);
+void env_built(char **array_param, char *line);
 
 
 void free_array_line(char **array_param, char *line);
