@@ -9,41 +9,33 @@ void parse_line(char **argv, char *line, size_t n)
 {
 	ssize_t check;
 	char **array_param;
-	char *file_path, *temp;
-	int i = 0;
+	char *file_path;
 
 	if (isatty(STDIN_FILENO))
 		print_string(PROMPT);
 
-	check = getline(&line, &n, stdin);
+	check = _getline(&line, &n, stdin);
 	if (check == -1)
 	{
 		exit(1);
 	}
 	array_param = tokenization(line);
+	if (built_in(array_param, line))
+		return;
 	file_path = locate_path(array_param[0]);
 	if (file_path)
 	{
-		temp = array_param[0];
-		array_param[0] = file_path;
-		free(temp);
+		if (file_path != array_param[0])
+		{
+			free(array_param[0]);
+			array_param[0] = file_path;
+		}
 		execute_child(array_param, argv);
 	}
 	else
 		perror(argv[0]);
 
 	free_array_line(array_param, line);
-	return;
-
-	if (!array_param || array_param[0] == NULL)
-		return;
-	i = 0;
-	while (array_param[i])
-	{
-		print_string(array_param[i]);
-		print_char('\n');
-		i++;
-	}
 }
 
 /**
