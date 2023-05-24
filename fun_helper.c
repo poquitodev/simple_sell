@@ -10,13 +10,15 @@ void free_array_line(char **array_param, char *line)
 {
 	int i = 0;
 
-	free(line);
+	if (line)
+		free(line);
 	while (array_param[i])
 	{
 		free(array_param[i]);
 		i++;
 	}
-	free(array_param);
+	if (array_param)
+		free(array_param);
 }
 
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);

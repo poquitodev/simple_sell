@@ -12,7 +12,6 @@ int built_in(char **array_param, char *line)
 	int i = 0;
 
 	builtin_t built_arr[] = {
-		{"exit", exit_built},
 		{"env", env_built},
 		{NULL, NULL}
 	};
@@ -22,7 +21,6 @@ int built_in(char **array_param, char *line)
 		if (_strcmp(array_param[0], built_arr[i].built) == 0)
 		{
 			(built_arr[i]).f(array_param, line);
-			printf("returning 1");
 			return (1);
 		}
 		i++;
@@ -70,13 +68,4 @@ void env_built(char **array_param, char *line)
 		print_char('\n');
 		i++;
 	}
-	while (array_param[i])
-	{
-		free(array_param[i]);
-		i++;
-	}
-	if (array_param)
-		free(array_param);
-	if (line)
-		free(line);
 }

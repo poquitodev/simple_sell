@@ -5,7 +5,7 @@
 *@line:command line
 *@n:length
 */
-void parse_line(char **argv, char *line, size_t n)
+void parse_line(char **argv, char *line, size_t n, int *command_count)
 {
 	ssize_t check;
 	char **array_param;
@@ -21,7 +21,10 @@ void parse_line(char **argv, char *line, size_t n)
 	}
 	array_param = tokenization(line);
 	if (built_in(array_param, line))
+	{
+		free_array_line(array_param, line);
 		return;
+	}
 	file_path = locate_path(array_param[0]);
 	if (file_path)
 	{
@@ -33,7 +36,17 @@ void parse_line(char **argv, char *line, size_t n)
 		execute_child(array_param, argv);
 	}
 	else
-		perror(argv[0]);
+	{
+		print_string(argv[0]);
+		print_string(": ");
+		print_int(*command_count);
+		print_string(": ");
+		print_string(array_param[0]);
+		print_string(": ");
+		print_string("not found\n");
+	}
+
+	(*command_count)++;
 
 	free_array_line(array_param, line);
 }
