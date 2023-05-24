@@ -14,7 +14,7 @@ void parse_line(char **argv, char *line, size_t n)
 	if (isatty(STDIN_FILENO))
 		print_string(PROMPT);
 
-	check = _getline(&line, &n, stdin);
+	check = getline(&line, &n, stdin);
 	if (check == -1)
 	{
 		exit(1);
