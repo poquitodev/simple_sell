@@ -4,7 +4,6 @@
 *@argc:number of arguments
 *@argv:content of arguments
 *Return:return 0
-*/
 int main(__attribute__((unused)) int argc, char **argv)
 {
 	char *line = NULL;
