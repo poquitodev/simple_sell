@@ -41,7 +41,7 @@ typedef struct listint_s
 } listint_t;
 
 
-void parse_line(char **argv, char *line, size_t n);
+void parse_line(char **argv, char *line, size_t n, int *command_count);
 void print_char(char c);
 void print_string(char *str);
 int str_len(char *str);
@@ -61,6 +61,7 @@ char *_strcpy(char *dest, char *src);
 void exit_built(char **array_param, char *line);
 int built_in(char **array_param, char *line);
 void env_built(char **array_param, char *line);
+void print_int(int n);
 
 
 void free_array_line(char **array_param, char *line);
